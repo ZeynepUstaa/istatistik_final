@@ -67,14 +67,14 @@ Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'
 ```{r}
 library(tidyverse)
 library(here)
-survey <- read_csv(here("../data/survey.csv"))
+spending <- read_csv(here("/Users/90538/OneDrive/Masaüstü/istatistik_final/istatistik_final))
 ```
 
 Rmd dosyasında kod bloklarının bazılarında kod seçeneklerinin düzenlendiğine dikkat edin. 
 
 ```{r, echo=FALSE}
 library(xtable) 
-# devtools::install_github("emraher/summarytools")
+# devtools::install_github("ZeynepUstaa/summarytools")
 library(summarytools)
 st_options(lang = "tr")
 ```
@@ -82,12 +82,12 @@ st_options(lang = "tr")
 `echo=FALSE` seçeneği ile kodların türetilen pdf dosyasında görünmesini engelleyin ve sonuçlarınızı tablo halinde rapor edin.
 
 ```{r results='asis', echo=FALSE}
-survey %>%
-  select("sex", "credits", "handedness", "height", "handspan") %>% 
+spending %>%
+  select("location", "indicator", "subject", "measure","time", "value",) %>% 
   descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
   xtable(caption = "Özet İstatistikler",
          label = "tab:ozet",
-         align = c("l", "c", "c", "c", "c", "c")) %>% 
+         align = c("c", "c", "c", "c", "c", "c")) %>% 
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
 
