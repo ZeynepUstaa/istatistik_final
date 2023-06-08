@@ -68,10 +68,7 @@ Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'
 library(tidyverse)
 library(here)
 data <- read_csv(here("../data/istih.csv"))
-install.packages("readr")
-library(readr)
-csv_path <- "C:/Users/90538/OneDrive/Masaüstü/istatistik_final/istatistik_final/data/istih.csv"
-data <- read_csv(csv_path)
+View(data)
 ```
 
 
@@ -95,7 +92,11 @@ data %>%
          label = "tab:ozet",
          align = c("1", "c", "c", "c", "c", "c")) %>% 
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+install.packages("xtable")
+library(xtable)
 ```
+
+
 ```{r}
 data %>%
   select(TIME,Value)%>%
@@ -105,6 +106,20 @@ data %>%
 
 # Yöntem ve Veri Analizi
 Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır. [@newbold:2003; @ozsoy:2010; @ozsoy:2014]
+
+```{r}
+library(broom)
+
+data %>% 
+  group_by(LOCATION) %>% 
+  summarise(var = var(Value))
+
+shapiro.test(data$Value)
+ggplot(data) +
+  aes(x = Value, fill = LOCATION) +
+  geom_histogram(binwidth = .5, alpha = 0.5)
+```
+
 
 Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
 
@@ -123,6 +138,28 @@ data %>%
   scale_x_continuous("TIME") + 
   scale_y_continuous("Value")
 ```
+```{r}
+ggplot(data, aes(x = Value)) +
+  geom_histogram(color="white",
+                fill= "black" ) +
+  scale_x_continuous(name = "İstihdam") +
+  scale_y_continuous(name = "") +
+  ggtitle("İstihdam Oranı")
+```
+```{r}
+data %>%
+  ggplot() +
+  aes(x = Value, group = LOCATION, fill = LOCATION) +
+  geom_density() +
+  facet_wrap(~LOCATION) +
+  labs(y = "", x = "", title = "ÜLKELERE GÖRE İSTİHDAM ORANI")
+```
+
+
+
+
+
+
 
 
 # Sonuç
