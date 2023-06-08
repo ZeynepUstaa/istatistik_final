@@ -65,7 +65,13 @@ Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham v
 Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'a aktaran ve özet istatistikleri üreten kodlar yer almalıdır.
 
 ```{r}
- data <- read_csv("C:/Users/90538/OneDrive/Masaüstü/istatistik_final/istatistik_final/data/istih.csv")
+library(tidyverse)
+library(here)
+data <- read_csv(here("../data/istih.csv"))
+install.packages("readr")
+library(readr)
+csv_path <- "C:/Users/90538/OneDrive/Masaüstü/istatistik_final/istatistik_final/data/istih.csv"
+data <- read_csv(csv_path)
 ```
 
 
